@@ -85,6 +85,7 @@
 			<div class="modal modal-fixed-footer">
 				<div class="modal-content">
 					<h4>
+						{{title}}
 					</h4>
 					<slot></slot>
 				</div>
@@ -103,16 +104,50 @@
 		</template>
 
 		<template id="complexModalTemplate">
-			<modal>
+			<modal :title="title">
+				<slot></slot>
 			</modal>
-			<minimized-modal>
-				TODO title
+			<minimized-modal>	
+				{{title}}<i class="material-icons">settings_overscan</i>
 			</minimized-modal>
 		</template>
 
 		<div id="app">
-			<complext-modal>
-
+			<complext-modal title="Dialog">
+				<ul class="collection">
+					<li class="collection-item avatar">
+						<img src="http://materializecss.com/images/yuna.jpg" alt="" class="circle">
+						<span class="title">Title</span>
+						<p>First Line <br>
+							Second Line
+						</p>
+						<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+					</li>
+					<li class="collection-item avatar">
+						<i class="material-icons circle">folder</i>
+						<span class="title">Title</span>
+						<p>First Line <br>
+							Second Line
+						</p>
+						<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+					</li>
+					<li class="collection-item avatar">
+						<i class="material-icons circle green">insert_chart</i>
+						<span class="title">Title</span>
+						<p>First Line <br>
+							Second Line
+						</p>
+						<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+					</li>
+					<li class="collection-item avatar">
+						<i class="material-icons circle red">play_arrow</i>
+						<span class="title">Title</span>
+						<p>First Line <br>
+							Second Line
+						</p>
+						<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+					</li>
+				</ul>
 			</complext-modal>
 		</div>
 		
@@ -121,12 +156,14 @@
 			Vue.config.debug = true;
 			
 			var modal = Vue.extend({
+				props: ['title'],
 				template: "#modalTemplate"
 			});
 			var minimizedModal = Vue.extend({
 				template: "#minimizedModalTemplate"
 			});
 			var complexModal = Vue.extend({
+				props: ['title'],
 				template: "#complexModalTemplate",
 				components: {
 					'modal': modal,
