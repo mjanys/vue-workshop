@@ -81,7 +81,6 @@
 	<body>
 		
 		<template id="modalTemplate">
-			<div @click="active = false" class="lean-overlay" style="display: block; opacity: 0.5;"></div>
 			<div class="modal modal-fixed-footer">
 				<div class="modal-content">
 					<h4>
@@ -104,7 +103,8 @@
 		</template>
 
 		<template id="complexModalTemplate">
-			<modal v-if="active" :title="title" :active.sync="active">
+			<div v-if="active" @click="active = false" class="lean-overlay" transition="modal-overlay" style="display: block; opacity: 0.5;"></div>
+			<modal v-if="active" :title="title" :active.sync="active" transition="modal">
 				<slot></slot>
 			</modal>
 			<minimized-modal @click="toggle">
