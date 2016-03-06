@@ -81,7 +81,7 @@
 	<body>
 		
 		<template id="modalTemplate">
-			<div class="lean-overlay" style="display: block; opacity: 0.5;"></div>
+			<div @click="active = false" class="lean-overlay" style="display: block; opacity: 0.5;"></div>
 			<div class="modal modal-fixed-footer">
 				<div class="modal-content">
 					<h4>
@@ -90,7 +90,7 @@
 					<slot></slot>
 				</div>
 				<div class="modal-footer">
-					<a href="#!" class="btn-flat"><i class="material-icons">clear</i></a>
+					<a @click.prevent="this.active = false" href="#!" class="btn-flat"><i class="material-icons">clear</i></a>
 				</div>
 			</div>
 		</template>
@@ -104,10 +104,10 @@
 		</template>
 
 		<template id="complexModalTemplate">
-			<modal :title="title">
+			<modal v-if="active" :title="title" :active.sync="active">
 				<slot></slot>
 			</modal>
-			<minimized-modal>	
+			<minimized-modal @click="toggle">
 				{{title}}<i class="material-icons">settings_overscan</i>
 			</minimized-modal>
 		</template>
@@ -156,7 +156,7 @@
 			Vue.config.debug = true;
 			
 			var modal = Vue.extend({
-				props: ['title'],
+				props: ['title', 'active'],
 				template: "#modalTemplate"
 			});
 			var minimizedModal = Vue.extend({
@@ -164,6 +164,30 @@
 			});
 			var complexModal = Vue.extend({
 				props: ['title'],
+				data: function () {
+					return {
+						active: false
+					}
+				},
+				methods: {
+					toggle: function() {
+						this.active = !this.active;
+					},
+					close: function () {
+						if (this.active) {
+							this.active = false;
+						}
+					}
+				},
+				ready: function () {
+					var self = this;
+					window.document.addEventListener('keydown', function(e) {
+						e = e || window.event;
+						if (e.keyCode == 27) {
+							self.close();
+						}
+					});
+				},
 				template: "#complexModalTemplate",
 				components: {
 					'modal': modal,
