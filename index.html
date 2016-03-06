@@ -1,0 +1,129 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+		<link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="animate.css">
+		<style type="text/css">
+			#app .modal {
+				display: block;
+			}
+			/* minimized dialog */
+			.collection.minimized {
+				position: absolute;
+				bottom: 0;
+				margin-bottom: 0;
+			}
+			.collection.minimized .collection-item .material-icons {
+				float:right;
+				margin: 0 0 0 10px;
+			}
+			.lean-overlay {
+				z-index: 1002;
+			}
+			.modal {
+				z-index: 1003;
+			}
+
+			/* transitions modal */
+			.modal-transition {
+				-webkit-animation-fill-mode: both;
+				animation-fill-mode: both;
+
+
+				-webkit-animation-duration: 0.3s;
+				animation-duration: 0.3s;
+
+				-webkit-animation-name: zoomIn;
+				animation-name: zoomIn;
+			}
+
+			.modal-leave {
+				opacity: 0;
+			}
+
+			.modal-leave {
+				-webkit-animation-duration: 0.2s;
+				animation-duration: 0.2s;
+
+				-webkit-animation-name: fadeOut;
+				animation-name: fadeOut;
+			}
+			/* transitions overlay */
+			.modal-overlay-transition {
+				-webkit-animation-fill-mode: both;
+				animation-fill-mode: both;
+
+				-webkit-animation-duration: 0.3s;
+				animation-duration: 0.3s;
+
+				-webkit-animation-name: fadeIn-0-5;
+				animation-name: fadeIn-0-5;
+			}
+
+			.modal-overlay-enter, .modal-overlay-leave {
+				opacity: 0;
+			}
+
+			.modal-overlay-leave {
+				-webkit-animation-duration: 0.2s;
+				animation-duration: 0.2s;
+
+				-webkit-animation-name: fadeOut-0-5;
+				animation-name: fadeOut-0-5;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<template id="modalTemplate">
+			// todo modal - http://materializecss.com/modals.html
+		</template>
+
+		<template id="minimizedModalTemplate">
+			// todo minimized - http://materializecss.com/collections.html
+		</template>
+
+		<template id="complexModalTemplate">
+			<modal>
+			</modal>
+			<minimized-modal>
+			</minimized-modal>
+			// todo modal component
+		</template>
+
+		<div id="app">
+			<complext-modal>
+
+			</complext-modal>
+		</div>
+		
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.17/vue.min.js"></script>
+		<script type="text/javascript">
+			Vue.config.debug = true;
+			
+			var modal = Vue.extend({
+				template: "#modalTemplate"
+			});
+			var minimizedModal = Vue.extend({
+				template: "#minimizedModalTemplate"
+			});
+			var complexModal = Vue.extend({
+				template: "#complexModalTemplate",
+				components: {
+					'modal': modal,
+					'minimized-modal': minimizedModal
+				}
+			});
+			new Vue({
+				components: {
+					'complext-modal': complexModal
+				}
+			}).$mount('#app');
+		</script>
+	</body>
+</html>
