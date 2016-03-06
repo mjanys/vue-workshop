@@ -85,13 +85,18 @@
 		</template>
 
 		<template id="minimizedModalTemplate">
-			// todo minimized - http://materializecss.com/collections.html
+			<div class="collection minimized">
+				<a href="#!" class="collection-item">
+					<slot></slot>
+				</a>
+			</div>
 		</template>
 
 		<template id="complexModalTemplate">
 			<modal>
 			</modal>
 			<minimized-modal>
+				TODO title
 			</minimized-modal>
 			// todo modal component
 		</template>
